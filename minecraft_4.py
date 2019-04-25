@@ -3,10 +3,12 @@ import mcpi.minecraft as mine
 import mcpi.block as block
 import time
 
+#  空間の初期化
 mc = mine.Minecraft.create()
 mc.setBlocks( -10, 0, -10, 10, 99, 10, block.AIR.id)
 mc.setBlocks( -10, -1, -10, 10, -99, 10, block.GRASS.id)
 
+#  滑り台の定義(配置テーブル)
 map = [
   ['11111111000','77777777111','00000007777','00000000000'],
   ['18000000000','77777777001','00000007777','00000000000'],
@@ -20,6 +22,7 @@ map = [
   ['00000000000','00000000000','00000000001','10000177777'],
   ['00000000000','00000000000','00000111111','11111177777']]
 
+#  滑り台の配置
 for h in range(4):
     for j in range(11):
         for i in range(11):
@@ -28,13 +31,15 @@ for h in range(4):
             y = 3 - h
             z = j - 5
             mc.setBlock( x, y, z, id)
+            #  水ブロックの初期位置をプレイヤーの初期位置に設定
             if(id == 8):
                 sx = x + 0.5
                 sy = y
                 sz = z + 0.5
-
+#  プレイヤーの移動
 mc.player.setPos(sx, sy, sz)
 
+#  下に降りたプレイヤーを上に戻す
 while True:
     x1, y1, z1 = mc.player.getPos()
     time.sleep(1)
